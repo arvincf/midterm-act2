@@ -1,32 +1,26 @@
 <template>
   <div id="app">
-    <header>
-      <h1>Product Management App</h1>
-    </header>
-    <main>
-      <ProductList @added="refreshProducts" />
-      <AddProduct @added="refreshProducts" />
-    </main>
+    <product-list :products="products" />
   </div>
 </template>
 
 <script>
 import ProductList from "./components/ProductList.vue";
-import AddProduct from "./components/AddProduct.vue";
+import store from "./store";
 
 export default {
+  name: "App",
   components: {
     ProductList,
-    AddProduct,
   },
-  methods: {
-    refreshProducts() {
-      window.location.reload();
+  computed: {
+    products() {
+      return store.state.products;
     },
   },
 };
 </script>
 
 <style>
-/* Add your global styles here */
+/* Add your CSS styling here */
 </style>
