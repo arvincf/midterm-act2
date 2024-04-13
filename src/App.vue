@@ -1,26 +1,9 @@
 <template>
-  <div id="app">
-    <product-list :products="products" />
-  </div>
+  <router-view />
 </template>
 
 <script>
-import ProductList from "./components/ProductList.vue";
-import store from "./store";
-
 export default {
-  name: "App",
-  components: {
-    ProductList,
-  },
-  computed: {
-    products() {
-      return store.state.products;
-    },
-  },
+  name: 'App'
 };
 </script>
-
-<style>
-/* Add your CSS styling here */
-</style>

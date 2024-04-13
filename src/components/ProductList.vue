@@ -1,40 +1,27 @@
 <template>
   <div>
-    <div v-for="(product, index) in products" :key="index">
+    <div v-for="product in products" :key="product.id">
       <h3>{{ product.name }}</h3>
       <p>{{ product.description }}</p>
       <p>Price: ${{ product.price }}</p>
-      <edit-product-form :product="product" @update="updateProduct(index, $event)" />
-      <delete-product-button @delete="deleteProduct(index)" />
+      <button @click="editProduct(product)">Edit</button>
+      <button @click="deleteProduct(product.id)">Delete</button>
     </div>
-    <add-product-form @submit="addProduct" />
   </div>
 </template>
 
 <script>
-import AddProductForm from "./AddProductForm.vue";
-import EditProductForm from "./EditProductForm.vue";
-import DeleteProductButton from "./DeleteProductButton.vue";
-
 export default {
-  components: {
-    AddProductForm,
-    EditProductForm,
-    DeleteProductButton,
-  },
   props: {
     products: Array,
   },
   methods: {
-    addProduct(product) {
-      this.$emit("add", product);
+    editProduct(product) {
+      this.$router.push({ name: 'EditProduct', params: { id: product.id } });
     },
-    updateProduct(index, updatedProduct) {
-      this.$emit("update", { index, updatedProduct });
-    },
-    deleteProduct(index) {
-      this.$emit("delete", index);
-    },
-  },
+    deleteProduct(productId) {
+      this.$store.dispatch('deleteProduct', productId);
+    }
+  }
 };
 </script>
