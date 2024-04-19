@@ -14,7 +14,7 @@
           </div>
           <div class="form-group">
             <label for="productPrice">Price:</label>
-            <input type="number" v-model="editedProduct.price" class="form-control" id="productPrice" required>
+            <input type="text" v-model="editedProduct.price" @input="validatePrice" class="form-control" id="productPrice" required>
           </div>
           <div class="button-group">
             <button type="submit" class="btn-add">Save Changes</button>
@@ -64,6 +64,10 @@ export default {
     },
     cancelEdit() {
       this.$router.push('/');
+    },
+    validatePrice() {
+      // Remove non-numeric characters from price
+      this.editedProduct.price = this.editedProduct.price.replace(/\D/g, '');
     }
   },
   mounted() {

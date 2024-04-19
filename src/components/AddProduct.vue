@@ -4,7 +4,7 @@
     <form @submit.prevent="addNewProduct" class="product-form">
       <input type="text" v-model="newProduct.name" placeholder="Name" required><br>
       <input type="text" v-model="newProduct.description" placeholder="Description" required><br>
-      <input type="number" v-model="newProduct.price" placeholder="Price" required><br>
+      <input type="text" v-model="newProduct.price" @input="validatePrice" placeholder="Price" required><br>
       <div class="button-group">
         <button type="submit" class="add-button">Add Product</button>
         <button type="button" @click="cancelAdd" class="cancel-button">Cancel</button>
@@ -24,7 +24,7 @@ export default {
       newProduct: {
         name: '',
         description: '',
-        price: 0,
+        price: 1,
       },
     };
   },
@@ -36,7 +36,7 @@ export default {
           this.newProduct = {
             name: '',
             description: '',
-            price: 0,
+            price: 1,
           };
           // Show success alert
           alertify.success('Product added successfully!!!');
@@ -56,6 +56,10 @@ export default {
       };
       this.$router.push('/');
     },
+    validatePrice() {
+      // Remove non-numeric characters from price
+      this.newProduct.price = this.newProduct.price.replace(/\D/g, '');
+    }
   },
   mounted() {
     alertify.set('notifier', 'position', 'top-right');
