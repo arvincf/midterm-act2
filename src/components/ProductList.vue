@@ -50,21 +50,15 @@ export default {
   }).set('labels', {
     ok: 'Yes',
     cancel: 'No'
-  });
+  }).set('title', 'Delete');
   alertify.defaults.theme.ok = "btn btn-danger";
 },
-    deleteProduct(index) {
-      this.$store.dispatch('deleteProduct', index)
-        .then(() => {
-          // Show success alert
-          alertify.success('Product deleted successfully!!!');
-          this.$router.push('/');
-        })
-        .catch(error => {
-          console.error('Error deleting product:', error);
-          alertify.error('Failed to delete product');
-        });
-    },
+deleteProduct(index) {
+  this.$store.dispatch('deleteProduct', index);
+  // Show success alert in red color
+  alertify.error('Product deleted successfully!!!', 'alert-danger');
+  this.$router.push('/');
+},
     goToAddProduct() {
       this.$router.push('/add');
     },
