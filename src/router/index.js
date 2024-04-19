@@ -1,29 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Home from '../views/Home.vue';
-import AddProduct from '../components/AddProduct.vue';
-import EditProductPage from '../views/EditProductPage.vue';
+import ProductList from '@/components/ProductList.vue';
+import AddProduct from '@/components/AddProduct.vue';
+import EditProduct from '@/components/EditProduct.vue';
 
 const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Home
-  },
-  {
-    path: '/add-product',
-    name: 'AddProduct',
-    component: AddProduct
-  },
-  {
-    path: '/edit-product/:id',
-    name: 'EditProduct',
-    component: EditProductPage
-  }
+  { path: '/', component: ProductList },
+  { path: '/add', component: AddProduct },
+  { path: '/edit/:id', component: EditProduct, props: true },
 ];
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
-  routes
+  history: createWebHistory(),
+  routes,
 });
 
 export default router;
