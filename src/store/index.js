@@ -1,32 +1,36 @@
-import { createStore } from 'vuex';
+// store/index.js
+import { createStore } from "vuex";
 
 export default createStore({
   state: {
-    products: []
+    products: [
+      { name: "Product 1", description: "Description 1", price: 10 },
+      { name: "Product 2", description: "Description 2", price: 20 },
+      { name: "Product 3", description: "Description 3", price: 30 },
+    ], // Default products
   },
   mutations: {
-    ADD_PRODUCT(state, product) {
+    // Mutations to add, edit, and delete products
+    addProduct(state, product) {
       state.products.push(product);
     },
-    UPDATE_PRODUCT(state, updatedProduct) {
-      const index = state.products.findIndex(product => product.id === updatedProduct.id);
+    editProduct(state, { index, updatedProduct }) {
       state.products.splice(index, 1, updatedProduct);
     },
-    DELETE_PRODUCT(state, productId) {
-      state.products = state.products.filter(product => product.id !== productId);
-    }
+    deleteProduct(state, index) {
+      state.products.splice(index, 1);
+    },
   },
   actions: {
+    // Actions to call mutations
     addProduct({ commit }, product) {
-      commit('ADD_PRODUCT', product);
+      commit("addProduct", product);
     },
-    updateProduct({ commit }, updatedProduct) {
-      commit('UPDATE_PRODUCT', updatedProduct);
+    editProduct({ commit }, payload) {
+      commit("editProduct", payload);
     },
-    deleteProduct({ commit }, productId) {
-      commit('DELETE_PRODUCT', productId);
-    }
+    deleteProduct({ commit }, index) {
+      commit("deleteProduct", index);
+    },
   },
-  modules: {
-  }
 });
